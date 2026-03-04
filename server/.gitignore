@@ -1,0 +1,20 @@
+# Node modules
+node_modules/
+
+# Environment files
+.env
+
+# Logs
+logs/
+*.log
+
+# OS system files
+.DS_Store
+Thumbs.db
+
+# Frontend build files
+client/build/
+server/build/
+
+# Optional: debug or temporary files
+*.tmp
