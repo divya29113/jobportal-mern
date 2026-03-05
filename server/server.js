@@ -15,9 +15,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/jobs", require("./routes/jobRoutes"));
+app.use("/api/applications", require("./routes/applicationRoutes"));
 
 app.get("/", (req, res) => {
-  res.send("API is running...");
+  res.json({ message: "API is running..." });
 });
 
 const PORT = process.env.PORT || 5000;
