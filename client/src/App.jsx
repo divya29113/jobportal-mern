@@ -1,31 +1,32 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+
+
+import Home from "./pages/Home";
 import Jobs from "./pages/Jobs";
-import Applicants from "./pages/Applicants";
 import PostJob from "./pages/PostJob";
 import MyJobs from "./pages/MyJobs";
-import "./styles.css";
+import Applicants from "./pages/Applicants";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   return (
-    <div>
-      <nav style={{background:"#333",color:"white",padding:"10px"}}>
-        <h2>Job Portal</h2>
-      </nav>
+    <Router>
+      <Navbar />
 
-
-      <PostJob />
-
-      <hr />
-
-      <Jobs />
-
-      <hr />
-
-      <Applicants />
-
-      <hr />
-      <MyJobs />
-
-    </div>
+      <div className="container">
+        <Routes>
+         <Route path="/" element={<Home />} />
+         <Route path="/login" element={<Login />} />
+         <Route path="/register" element={<Register />} />
+         <Route path="/jobs" element={<Jobs />} />
+         <Route path="/postjob" element={<PostJob />} />
+         <Route path="/myjobs" element={<MyJobs />} />
+         <Route path="/applicants" element={<Applicants />} />
+       </Routes>
+      </div>
+    </Router>
   );
 }
 

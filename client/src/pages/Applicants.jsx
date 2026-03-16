@@ -1,92 +1,91 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 function Applicants() {
-
   const [jobId, setJobId] = useState("");
   const [applicants, setApplicants] = useState([]);
 
   const fetchApplicants = async () => {
-
     try {
-
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
         `http://localhost:5000/api/applications/job/${jobId}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
       setApplicants(res.data);
-
     } catch (error) {
       console.log(error);
       alert("Error fetching applicants");
     }
   };
+
   const updateStatus = async (applicationId, status) => {
+    try {
+      const token = localStorage.getItem("token");
 
-  try {
-
-    const token = localStorage.getItem("token");
-
-    const res = await axios.put(
-      `http://localhost:5000/api/applications/status/${applicationId}`,
-      { status },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
+      const res = await axios.put(
+        `http://localhost:5000/api/applications/status/${applicationId}`,
+        { status },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      }
-    );
+      );
 
-    alert(res.data.message);
+      alert(res.data.message);
 
-  } catch (error) {
-    console.log(error);
-  }
-
-};
+      // refresh applicants after status update
+      fetchApplicants();
+    } catch (error) {
+      console.log(error);
+      alert("Error updating status");
+    }
+  };
 
   return (
     <div>
+      <h2>View Applicants</h2>
 
-      <h2>View Job Applicants</h2>
+      <div className="job-card">
+        <input
+          type="text"
+          placeholder="Enter Job ID"
+          value={jobId}
+          onChange={(e) => setJobId(e.target.value)}
+        />
 
-      <input
-        type="text"
-        placeholder="Enter Job ID"
-        onChange={(e) => setJobId(e.target.value)}
-      />
+        <button onClick={fetchApplicants}>Get Applicants</button>
+      </div>
 
-      <button onClick={fetchApplicants}>
-        Get Applicants
-      </button>
+      {applicants.length === 0 ? (
+        <p>No applicants found</p>
+      ) : (
+        applicants.map((app) => (
+          <div className="job-card" key={app._id}>
+            <h3>{app.applicant.name}</h3>
+            <p><b>Email:</b> {app.applicant.email}</p>
+            <p><b>Status:</b> {app.status}</p>
 
-      <hr />
+            <button onClick={() => updateStatus(app._id, "accepted")}>
+              Accept
+            </button>
 
-      {applicants.map((app) => (
-  <div key={app._id} style={{border:"1px solid gray", padding:"10px", margin:"10px"}}>
-
-    <h3>{app.applicant.name}</h3>
-    <p>Email: {app.applicant.email}</p>
-    <p>Status: {app.status}</p>
-
-    <button onClick={() => updateStatus(app._id, "accepted")}>
-      Accept
-    </button>
-
-    <button onClick={() => updateStatus(app._id, "rejected")}>
-      Reject
-    </button>
-
-  </div>
-))}
-
+            <button
+              onClick={() => updateStatus(app._id, "rejected")}
+              style={{ marginLeft: "10px", background: "#dc2626" }}
+            >
+              Reject
+            </button>
+          </div>
+        ))
+      )}
     </div>
   );
 }

@@ -2,7 +2,6 @@ import { useState } from "react";
 import axios from "axios";
 
 function PostJob() {
-
   const [title, setTitle] = useState("");
   const [company, setCompany] = useState("");
   const [location, setLocation] = useState("");
@@ -13,7 +12,6 @@ function PostJob() {
     e.preventDefault();
 
     try {
-
       const token = localStorage.getItem("token");
 
       const res = await axios.post(
@@ -23,23 +21,22 @@ function PostJob() {
           company,
           location,
           description,
-          salary
+          salary,
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
-      alert("Job posted successfully");
+      alert(res.data.message || "Job posted successfully");
 
       setTitle("");
       setCompany("");
       setLocation("");
       setDescription("");
       setSalary("");
-
     } catch (error) {
       console.log(error);
       alert("Error posting job");
@@ -48,61 +45,48 @@ function PostJob() {
 
   return (
     <div>
+      <h2>Post a Job</h2>
 
-      <h2>Post Job</h2>
+      <div className="job-card">
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Job Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
 
-      <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Company Name"
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
+          />
 
-        <input
-          type="text"
-          placeholder="Job Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+          <input
+            type="text"
+            placeholder="Location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+          />
 
-        <br /><br />
+          <textarea
+            placeholder="Job Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            rows="5"
+          />
 
-        <input
-          type="text"
-          placeholder="Company Name"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-        />
+          <input
+            type="text"
+            placeholder="Salary"
+            value={salary}
+            onChange={(e) => setSalary(e.target.value)}
+          />
 
-        <br /><br />
-
-        <input
-          type="text"
-          placeholder="Location"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-        />
-
-        <br /><br />
-
-        <textarea
-          placeholder="Job Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-
-        <br /><br />
-
-        <input
-          type="text"
-          placeholder="Salary"
-          value={salary}
-          onChange={(e) => setSalary(e.target.value)}
-        />
-
-        <br /><br />
-
-        <button type="submit">
-          Post Job
-        </button>
-
-      </form>
-
+          <button type="submit">Post Job</button>
+        </form>
+      </div>
     </div>
   );
 }
