@@ -4,7 +4,6 @@ const Job = require("../models/Job");
 // Apply for a job
 const applyJob = async (req, res) => {
   try {
-
     const jobId = req.params.jobId;
 
     const application = await Application.create({
@@ -17,17 +16,14 @@ const applyJob = async (req, res) => {
       message: "Job applied successfully",
       application
     });
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-
 // Get applicants for a job (Employer)
 const getApplicationsForJob = async (req, res) => {
   try {
-
     const jobId = req.params.jobId;
 
     const applications = await Application.find({ job: jobId })
@@ -35,17 +31,14 @@ const getApplicationsForJob = async (req, res) => {
       .populate("job", "title company");
 
     res.status(200).json(applications);
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-
 // Update application status (Accept / Reject)
 const updateApplicationStatus = async (req, res) => {
   try {
-
     const { status } = req.body;
 
     const application = await Application.findByIdAndUpdate(
@@ -58,15 +51,27 @@ const updateApplicationStatus = async (req, res) => {
       message: "Application status updated",
       application
     });
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
+// Get applications of logged-in jobseeker
+const getMyApplications = async (req, res) => {
+  try {
+    const applications = await Application.find({
+      applicant: req.user._id
+    }).populate("job", "title company location salary");
+
+    res.status(200).json(applications);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 module.exports = {
   applyJob,
   getApplicationsForJob,
-  updateApplicationStatus
+  updateApplicationStatus,
+  getMyApplications
 };

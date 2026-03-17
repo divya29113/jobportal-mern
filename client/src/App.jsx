@@ -9,6 +9,7 @@ import MyJobs from "./pages/MyJobs";
 import Applicants from "./pages/Applicants";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import MyApplications from "./pages/MyApplications";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
          <Route path="/postjob" element={<PostJob />} />
          <Route path="/myjobs" element={<MyJobs />} />
          <Route path="/applicants" element={<Applicants />} />
+         <Route path="/myapplications" element={<MyApplications />} />
        </Routes>
       </div>
     </Router>

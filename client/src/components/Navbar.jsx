@@ -52,30 +52,36 @@ function Navbar() {
           )}
 
           {token && role === "jobseeker" && (
-            <>
-              <Link
-                to="/jobs"
-                style={{ color: "white", marginRight: "15px", textDecoration: "none" }}
-              >
-                Jobs
-              </Link>
+  <>
+    <Link
+      to="/jobs"
+      style={{ color: "white", marginRight: "15px", textDecoration: "none" }}
+    >
+      Jobs
+    </Link>
 
-              <button
-                onClick={logoutUser}
-                style={{
-                  background: "#dc2626",
-                  color: "white",
-                  border: "none",
-                  padding: "8px 12px",
-                  borderRadius: "6px",
-                  cursor: "pointer"
-                }}
-              >
-                Logout
-              </button>
-            </>
-          )}
+    <Link
+      to="/myapplications"
+      style={{ color: "white", marginRight: "15px", textDecoration: "none" }}
+    >
+      My Applications
+    </Link>
 
+    <button
+      onClick={logoutUser}
+      style={{
+        background: "#dc2626",
+        color: "white",
+        border: "none",
+        padding: "8px 12px",
+        borderRadius: "6px",
+        cursor: "pointer"
+      }}
+    >
+      Logout
+    </button>
+  </>
+)}
           {token && role === "employer" && (
             <>
               <Link
