@@ -1,13 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 function Applicants() {
-  const [jobId, setJobId] = useState("");
+  const { jobId } = useParams();
   const [applicants, setApplicants] = useState([]);
 
-  const fetchApplicants = async () => {
+  const updateStatus = async (applicationId, status) => {
     try {
       const token = localStorage.getItem("token");
+
+      await axios.put(
+        `http://localhost:5000/api/applications/status/${applicationId}`,
+        { status },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      alert("Application status updated");
 
       const res = await axios.get(
         `http://localhost:5000/api/applications/job/${jobId}`,
@@ -21,48 +34,37 @@ function Applicants() {
       setApplicants(res.data);
     } catch (error) {
       console.log(error);
-      alert("Error fetching applicants");
-    }
-  };
-
-  const updateStatus = async (applicationId, status) => {
-    try {
-      const token = localStorage.getItem("token");
-
-      const res = await axios.put(
-        `http://localhost:5000/api/applications/status/${applicationId}`,
-        { status },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      alert(res.data.message);
-
-      // refresh applicants after status update
-      fetchApplicants();
-    } catch (error) {
-      console.log(error);
       alert("Error updating status");
     }
   };
 
+  useEffect(() => {
+    const fetchApplicantsData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const res = await axios.get(
+          `http://localhost:5000/api/applications/job/${jobId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        setApplicants(res.data);
+      } catch (error) {
+        console.log(error);
+        alert("Error fetching applicants");
+      }
+    };
+
+    fetchApplicantsData();
+  }, [jobId]);
+
   return (
     <div>
       <h2>View Applicants</h2>
-
-      <div className="job-card">
-        <input
-          type="text"
-          placeholder="Enter Job ID"
-          value={jobId}
-          onChange={(e) => setJobId(e.target.value)}
-        />
-
-        <button onClick={fetchApplicants}>Get Applicants</button>
-      </div>
 
       {applicants.length === 0 ? (
         <p>No applicants found</p>
@@ -73,13 +75,31 @@ function Applicants() {
             <p><b>Email:</b> {app.applicant.email}</p>
             <p><b>Status:</b> {app.status}</p>
 
-            <button onClick={() => updateStatus(app._id, "accepted")}>
+            <button
+              onClick={() => updateStatus(app._id, "accepted")}
+              style={{
+                background: "green",
+                color: "white",
+                border: "none",
+                padding: "8px 12px",
+                borderRadius: "6px",
+                cursor: "pointer",
+                marginRight: "10px"
+              }}
+            >
               Accept
             </button>
 
             <button
               onClick={() => updateStatus(app._id, "rejected")}
-              style={{ marginLeft: "10px", background: "#dc2626" }}
+              style={{
+                background: "#dc2626",
+                color: "white",
+                border: "none",
+                padding: "8px 12px",
+                borderRadius: "6px",
+                cursor: "pointer"
+              }}
             >
               Reject
             </button>

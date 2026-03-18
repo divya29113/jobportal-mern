@@ -10,6 +10,7 @@ import Applicants from "./pages/Applicants";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import MyApplications from "./pages/MyApplications";
+import ResumeBuilder from "./pages/ResumeBuilder";
 
 function App() {
   return (
@@ -24,8 +25,9 @@ function App() {
          <Route path="/jobs" element={<Jobs />} />
          <Route path="/postjob" element={<PostJob />} />
          <Route path="/myjobs" element={<MyJobs />} />
-         <Route path="/applicants" element={<Applicants />} />
+         <Route path="/applicants/:jobId" element={<Applicants />} />
          <Route path="/myapplications" element={<MyApplications />} />
+         <Route path="/resume" element={<ResumeBuilder />} />
        </Routes>
       </div>
     </Router>

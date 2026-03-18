@@ -4,27 +4,27 @@ import axios from "axios";
 function MyApplications() {
   const [applications, setApplications] = useState([]);
 
-  const fetchMyApplications = async () => {
-    try {
-      const token = localStorage.getItem("token");
-
-      const res = await axios.get(
-        "http://localhost:5000/api/applications/my",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
-
-      setApplications(res.data);
-    } catch (error) {
-      console.log(error);
-      alert("Error fetching applications");
-    }
-  };
-
   useEffect(() => {
+    const fetchMyApplications = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const res = await axios.get(
+          "http://localhost:5000/api/applications/my",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );
+
+        setApplications(res.data);
+      } catch (error) {
+        console.log(error);
+        alert("Error fetching applications");
+      }
+    };
+
     fetchMyApplications();
   }, []);
 

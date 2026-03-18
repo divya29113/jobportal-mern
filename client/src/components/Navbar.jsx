@@ -23,9 +23,10 @@ function Navbar() {
           alignItems: "center"
         }}
       >
-        <h1>Job Portal</h1>
+        <h1 style={{ margin: 0 }}>Job Portal</h1>
 
         <div>
+          {/* Always visible */}
           <Link
             to="/"
             style={{ color: "white", marginRight: "15px", textDecoration: "none" }}
@@ -33,6 +34,7 @@ function Navbar() {
             Home
           </Link>
 
+          {/* Not logged in */}
           {!token && (
             <>
               <Link
@@ -51,58 +53,28 @@ function Navbar() {
             </>
           )}
 
+          {/* Jobseeker Menu */}
           {token && role === "jobseeker" && (
-  <>
-    <Link
-      to="/jobs"
-      style={{ color: "white", marginRight: "15px", textDecoration: "none" }}
-    >
-      Jobs
-    </Link>
-
-    <Link
-      to="/myapplications"
-      style={{ color: "white", marginRight: "15px", textDecoration: "none" }}
-    >
-      My Applications
-    </Link>
-
-    <button
-      onClick={logoutUser}
-      style={{
-        background: "#dc2626",
-        color: "white",
-        border: "none",
-        padding: "8px 12px",
-        borderRadius: "6px",
-        cursor: "pointer"
-      }}
-    >
-      Logout
-    </button>
-  </>
-)}
-          {token && role === "employer" && (
             <>
               <Link
-                to="/postjob"
+                to="/jobs"
                 style={{ color: "white", marginRight: "15px", textDecoration: "none" }}
               >
-                Post Job
+                Jobs
               </Link>
 
               <Link
-                to="/myjobs"
+                to="/myapplications"
                 style={{ color: "white", marginRight: "15px", textDecoration: "none" }}
               >
-                My Jobs
+                My Applications
               </Link>
 
               <Link
-                to="/applicants"
+                to="/resume"
                 style={{ color: "white", marginRight: "15px", textDecoration: "none" }}
               >
-                Applicants
+                Resume Builder
               </Link>
 
               <button
@@ -120,6 +92,39 @@ function Navbar() {
               </button>
             </>
           )}
+
+          {/* Employer Menu */}
+          {token && role === "employer" && (
+  <>
+    <Link
+      to="/postjob"
+      style={{ color: "white", marginRight: "15px", textDecoration: "none" }}
+    >
+      Post Job
+    </Link>
+
+    <Link
+      to="/myjobs"
+      style={{ color: "white", marginRight: "15px", textDecoration: "none" }}
+    >
+      My Jobs
+    </Link>
+
+    <button
+      onClick={logoutUser}
+      style={{
+        background: "#dc2626",
+        color: "white",
+        border: "none",
+        padding: "8px 12px",
+        borderRadius: "6px",
+        cursor: "pointer"
+      }}
+    >
+      Logout
+    </button>
+  </>
+)}
         </div>
       </div>
     </div>
