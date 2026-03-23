@@ -14,7 +14,14 @@ function Navbar() {
   };
 
   return (
-    <div className="navbar">
+    <div
+     className="navbar"
+     style={{
+    background: "linear-gradient(90deg, #1e3a8a, #2563eb)",
+    padding: "15px 0",
+    boxShadow: "0px 2px 10px rgba(0,0,0,0.1)"
+    }}
+    >
       <div
         className="container"
         style={{

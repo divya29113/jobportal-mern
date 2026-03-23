@@ -58,17 +58,16 @@ body {
 /* Job Card */
 .job-card {
   background: white;
-  padding: 15px;
+  padding: 20px;
   margin: 15px;
-  border-radius: 10px;
-  box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
   transition: 0.3s;
 }
 
 .job-card:hover {
-  transform: scale(1.02);
+  transform: translateY(-5px);
 }
-
 .job-card button {
   background: green;
   color: white;
@@ -80,4 +79,13 @@ body {
 
 .job-card button:hover {
   background: darkgreen;
+}
+
+button {
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+button:hover {
+  opacity: 0.9;
 }
