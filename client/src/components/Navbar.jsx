@@ -15,12 +15,12 @@ function Navbar() {
 
   return (
     <div
-     className="navbar"
-     style={{
-    background: "linear-gradient(90deg, #1e3a8a, #2563eb)",
-    padding: "15px 0",
-    boxShadow: "0px 2px 10px rgba(0,0,0,0.1)"
-    }}
+      className="navbar"
+      style={{
+        background: "linear-gradient(90deg, #1e3a8a, #2563eb)",
+        padding: "15px 0",
+        boxShadow: "0px 2px 10px rgba(0,0,0,0.1)"
+      }}
     >
       <div
         className="container"
@@ -30,10 +30,9 @@ function Navbar() {
           alignItems: "center"
         }}
       >
-        <h1 style={{ margin: 0 }}>Job Portal</h1>
+        <h1 style={{ margin: 0, color: "white" }}>Job Portal</h1>
 
         <div>
-          {/* Always visible */}
           <Link
             to="/"
             style={{ color: "white", marginRight: "15px", textDecoration: "none" }}
@@ -41,7 +40,6 @@ function Navbar() {
             Home
           </Link>
 
-          {/* Not logged in */}
           {!token && (
             <>
               <Link
@@ -60,7 +58,6 @@ function Navbar() {
             </>
           )}
 
-          {/* Jobseeker Menu */}
           {token && role === "jobseeker" && (
             <>
               <Link
@@ -100,38 +97,37 @@ function Navbar() {
             </>
           )}
 
-          {/* Employer Menu */}
           {token && role === "employer" && (
-  <>
-    <Link
-      to="/postjob"
-      style={{ color: "white", marginRight: "15px", textDecoration: "none" }}
-    >
-      Post Job
-    </Link>
+            <>
+              <Link
+                to="/postjob"
+                style={{ color: "white", marginRight: "15px", textDecoration: "none" }}
+              >
+                Post Job
+              </Link>
 
-    <Link
-      to="/myjobs"
-      style={{ color: "white", marginRight: "15px", textDecoration: "none" }}
-    >
-      My Jobs
-    </Link>
+              <Link
+                to="/myjobs"
+                style={{ color: "white", marginRight: "15px", textDecoration: "none" }}
+              >
+                My Jobs
+              </Link>
 
-    <button
-      onClick={logoutUser}
-      style={{
-        background: "#dc2626",
-        color: "white",
-        border: "none",
-        padding: "8px 12px",
-        borderRadius: "6px",
-        cursor: "pointer"
-      }}
-    >
-      Logout
-    </button>
-  </>
-)}
+              <button
+                onClick={logoutUser}
+                style={{
+                  background: "#dc2626",
+                  color: "white",
+                  border: "none",
+                  padding: "8px 12px",
+                  borderRadius: "6px",
+                  cursor: "pointer"
+                }}
+              >
+                Logout
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>

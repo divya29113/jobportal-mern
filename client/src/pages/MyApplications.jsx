@@ -13,8 +13,8 @@ function MyApplications() {
           "http://localhost:5000/api/applications/my",
           {
             headers: {
-              Authorization: `Bearer ${token}`
-            }
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
 
@@ -30,21 +30,60 @@ function MyApplications() {
 
   return (
     <div className="page-section">
-      <h2>My Applications</h2>
+      <div style={{ maxWidth: "900px", margin: "auto" }}>
+        <h2
+          style={{
+            textAlign: "center",
+            marginBottom: "10px",
+            color: "#1e3a8a"
+          }}
+        >
+          My Applications
+        </h2>
 
-      {applications.length === 0 ? (
-        <p>No applications found</p>
-      ) : (
-        applications.map((app) => (
-          <div className="job-card" key={app._id}>
-            <h3>{app.job?.title}</h3>
-            <p><b>Company:</b> {app.job?.company}</p>
-            <p><b>Location:</b> {app.job?.location}</p>
-            <p><b>Salary:</b> {app.job?.salary}</p>
-            <p><b>Status:</b> {app.status}</p>
-          </div>
-        ))
-      )}
+        <p style={{ textAlign: "center", marginBottom: "20px", color: "#555" }}>
+          Total Applications: {applications.length}
+        </p>
+
+        {applications.length === 0 ? (
+          <p style={{ textAlign: "center" }}>No applications found</p>
+        ) : (
+          applications.map((app) => (
+            <div className="job-card" key={app._id}>
+              <h3 style={{ color: "#1e3a8a", marginBottom: "10px" }}>
+                {app.job?.title}
+              </h3>
+
+              <p style={{ margin: "6px 0" }}>
+                <b>Company:</b> {app.job?.company}
+              </p>
+
+              <p style={{ margin: "6px 0" }}>
+                <b>Location:</b> {app.job?.location}
+              </p>
+
+              <p style={{ margin: "6px 0" }}>
+                <b>Salary:</b> {app.job?.salary}
+              </p>
+
+              <p
+                style={{
+                  marginTop: "10px",
+                  fontWeight: "bold",
+                  color:
+                    app.status === "accepted"
+                      ? "green"
+                      : app.status === "rejected"
+                      ? "red"
+                      : "#1e3a8a"
+                }}
+              >
+                Status: {app.status}
+              </p>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }
