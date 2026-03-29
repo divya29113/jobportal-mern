@@ -3,6 +3,8 @@ import axios from "axios";
 
 function Jobs() {
   const [jobs, setJobs] = useState([]);
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
 
   useEffect(() => {
     axios
@@ -29,66 +31,88 @@ function Jobs() {
         }
       );
 
-      alert(res.data.message);
+      setMessage(res.data.message || "Job applied successfully");
+      setMessageType("success");
     } catch (error) {
       console.log("Apply error:", error);
-      alert("Error applying for job");
+      setMessage("Error applying for job");
+      setMessageType("error");
     }
   };
 
   return (
     <div className="page-section">
-      <div style={{ maxWidth: "900px", margin: "auto" }}>
+      <div style={{ maxWidth: "1000px", margin: "auto" }}>
         <h2
           style={{
             textAlign: "center",
-            marginBottom: "20px",
+            marginBottom: "10px",
             color: "#1e3a8a"
           }}
         >
           Available Jobs
         </h2>
 
+        <p style={{ textAlign: "center", marginBottom: "20px", color: "#555" }}>
+          Find and apply for jobs easily
+        </p>
+
+        {message && (
+          <div
+            className={`message-box ${
+              messageType === "success" ? "message-success" : "message-error"
+            }`}
+            style={{ maxWidth: "700px", margin: "0 auto 20px auto" }}
+          >
+            {message}
+          </div>
+        )}
+
         {jobs.length === 0 ? (
           <p style={{ textAlign: "center" }}>No jobs available</p>
         ) : (
           jobs.map((job) => (
-  <div className="job-card" key={job._id}>
-    <h3 style={{ color: "#1e3a8a", marginBottom: "10px" }}>{job.title}</h3>
+            <div
+              className="job-card"
+              key={job._id}
+              style={{ maxWidth: "700px", margin: "20px auto" }}
+            >
+              <h3 style={{ color: "#1e3a8a", marginBottom: "10px" }}>
+                {job.title}
+              </h3>
 
-    <p style={{ margin: "6px 0" }}>
-      <b>Company:</b> {job.company}
-    </p>
+              <p style={{ margin: "6px 0" }}>
+                <b>Company:</b> {job.company}
+              </p>
 
-    <p style={{ margin: "6px 0" }}>
-      <b>Location:</b> {job.location}
-    </p>
+              <p style={{ margin: "6px 0" }}>
+                <b>Location:</b> {job.location}
+              </p>
 
-    <p style={{ margin: "6px 0" }}>
-      <b>Salary:</b> {job.salary}
-    </p>
+              <p style={{ margin: "6px 0" }}>
+                <b>Salary:</b> ₹ {job.salary}
+              </p>
 
-    <p style={{ margin: "10px 0" }}>
-      <b>Description:</b> {job.description}
-    </p>
+              <p style={{ margin: "10px 0", color: "#555" }}>
+                <b>Description:</b> {job.description}
+              </p>
 
-   <button
-  onClick={() => applyJob(job._id)}
-  style={{
-    background: "#2563eb",
-    color: "white",
-    border: "none",
-    padding: "10px 18px",
-    borderRadius: "8px",
-    cursor: "pointer",
-    fontWeight: "bold",
-    marginTop: "10px"
-  }}
->
-  Apply Now
-</button>
-  </div>
-))
+              <button
+                onClick={() => applyJob(job._id)}
+                style={{
+                  background: "green",
+                  color: "white",
+                  border: "none",
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  fontWeight: "bold"
+                }}
+              >
+                Apply Now
+              </button>
+            </div>
+          ))
         )}
       </div>
     </div>

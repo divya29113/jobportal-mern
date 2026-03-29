@@ -6,6 +6,8 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("jobseeker");
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
 
   const registerUser = async (e) => {
     e.preventDefault();
@@ -18,7 +20,8 @@ function Register() {
         role
       });
 
-      alert(res.data.message);
+      setMessage(res.data.message || "Registration successful");
+      setMessageType("success");
 
       setName("");
       setEmail("");
@@ -26,44 +29,75 @@ function Register() {
       setRole("jobseeker");
     } catch (error) {
       console.log(error);
-      alert("Error registering user");
+      setMessage("Error registering user");
+      setMessageType("error");
     }
   };
 
   return (
     <div className="page-section">
-      <div className="form-card">
-        <h2>Register</h2>
+      <div style={{ maxWidth: "500px", margin: "auto" }}>
+        <h2
+          style={{
+            textAlign: "center",
+            marginBottom: "8px",
+            color: "#1e3a8a"
+          }}
+        >
+          Register
+        </h2>
 
-        <form onSubmit={registerUser}>
-          <input
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+        <p
+          style={{
+            textAlign: "center",
+            marginBottom: "20px",
+            color: "#555"
+          }}
+        >
+          Create your account to continue
+        </p>
 
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+        {message && (
+          <div
+            className={`message-box ${
+              messageType === "success" ? "message-success" : "message-error"
+            }`}
+          >
+            {message}
+          </div>
+        )}
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        <div className="form-card">
+          <form onSubmit={registerUser}>
+            <input
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
 
-          <select value={role} onChange={(e) => setRole(e.target.value)}>
-            <option value="jobseeker">Jobseeker</option>
-            <option value="employer">Employer</option>
-          </select>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-          <button type="submit">Register</button>
-        </form>
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <select value={role} onChange={(e) => setRole(e.target.value)}>
+              <option value="jobseeker">Jobseeker</option>
+              <option value="employer">Employer</option>
+            </select>
+
+            <button type="submit">Register</button>
+          </form>
+        </div>
       </div>
     </div>
   );

@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
+
   const navigate = useNavigate();
 
   const loginUser = async (e) => {
@@ -19,37 +22,75 @@ function Login() {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("role", res.data.user.role);
 
-      alert("Login successful");
-      navigate("/");
+      setMessage("Login successful");
+      setMessageType("success");
 
+      setEmail("");
+      setPassword("");
+
+      setTimeout(() => {
+        navigate("/");
+        window.location.reload();
+      }, 1000);
     } catch (error) {
       console.log(error);
-      alert("Invalid email or password");
+      setMessage("Invalid email or password");
+      setMessageType("error");
     }
   };
 
   return (
     <div className="page-section">
-      <div className="form-card">
-        <h2>Login</h2>
+      <div style={{ maxWidth: "500px", margin: "auto" }}>
+        <h2
+          style={{
+            textAlign: "center",
+            marginBottom: "8px",
+            color: "#1e3a8a"
+          }}
+        >
+          Login
+        </h2>
 
-        <form onSubmit={loginUser}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+        <p
+          style={{
+            textAlign: "center",
+            marginBottom: "20px",
+            color: "#555"
+          }}
+        >
+          Enter your credentials to continue
+        </p>
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        {message && (
+          <div
+            className={`message-box ${
+              messageType === "success" ? "message-success" : "message-error"
+            }`}
+          >
+            {message}
+          </div>
+        )}
 
-          <button type="submit">Login</button>
-        </form>
+        <div className="form-card">
+          <form onSubmit={loginUser}>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <button type="submit">Login</button>
+          </form>
+        </div>
       </div>
     </div>
   );

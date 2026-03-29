@@ -83,7 +83,23 @@ function ResumeBuilder() {
               rows="4"
             />
 
-            <button onClick={downloadPDF}>Download Resume as PDF</button>
+            <button
+  onClick={downloadPDF}
+  style={{
+    background: "linear-gradient(90deg, #2563eb, #1e3a8a)",
+    color: "white",
+    border: "none",
+    padding: "12px 18px",
+    borderRadius: "8px",
+    cursor: "pointer",
+    fontWeight: "bold",
+    fontSize: "15px",
+    marginTop: "10px",
+    boxShadow: "0 3px 8px rgba(0,0,0,0.15)"
+  }}
+>
+  Download Resume PDF
+</button>
           </div>
 
           <div className="job-card resume-preview" ref={resumeRef}>
