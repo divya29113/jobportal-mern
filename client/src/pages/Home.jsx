@@ -1,3 +1,4 @@
+
 function Home() {
   return (
     <div className="page-section">
@@ -63,6 +64,7 @@ function Home() {
           Register, explore jobs, and build your future with our Job Portal.
         </p>
       </div>
+      
     </div>
   );
 }
