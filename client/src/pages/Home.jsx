@@ -84,39 +84,77 @@ function Home() {
 
         .feature-card {
           background: white;
-          border-radius: 16px;
-          padding: 25px;
+          border-radius: 18px;
+          padding: 28px 24px;
           box-shadow: 0 10px 20px rgba(0,0,0,0.08);
           transition: 0.3s;
+          border: 1px solid #e5e7eb;
         }
 
         .feature-card:hover {
-          transform: translateY(-5px);
+          transform: translateY(-6px);
+          box-shadow: 0 14px 28px rgba(0,0,0,0.12);
+        }
+
+        .feature-icon {
+          width: 58px;
+          height: 58px;
+          border-radius: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 28px;
+          margin-bottom: 18px;
+          background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+          box-shadow: 0 4px 10px rgba(37, 99, 235, 0.15);
         }
 
         .feature-card h3 {
           color: #1e3a8a;
           margin-bottom: 10px;
+          font-size: 28px;
         }
 
         .feature-card p {
           color: #555;
+          margin: 0;
+          font-size: 18px;
+          line-height: 1.6;
         }
 
         .bottom-card {
           background: #ffffff;
-          border-radius: 16px;
-          padding: 30px;
+          border-radius: 18px;
+          padding: 40px 30px;
           text-align: center;
           box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+          border: 1px solid #e5e7eb;
+        }
+
+        .bottom-icon {
+          width: 70px;
+          height: 70px;
+          margin: 0 auto 18px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 34px;
+          background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+          box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
         }
 
         .bottom-card h2 {
           color: #1e3a8a;
+          font-size: 28px;
+          margin-bottom: 10px;
         }
 
         .bottom-card p {
           color: #555;
+          font-size: 17px;
+          margin: 0;
+          line-height: 1.6;
         }
 
         @media (max-width: 768px) {
@@ -127,25 +165,27 @@ function Home() {
 
           .hero-image {
             margin-top: 20px;
+            width: 260px;
+          }
+
+          .hero-title {
+            font-size: 34px;
           }
         }
       `}</style>
 
-      {/* 🔥 PREMIUM BANNER */}
+      {/* PREMIUM BANNER */}
       <div className="hero-banner">
         <div className="hero-left">
           <div className="hero-badge">Smart Job Portal</div>
 
-          <h1 className="hero-title">
-            Build Your Career with Confidence
-          </h1>
+          <h1 className="hero-title">Build Your Career with Confidence</h1>
 
           <p className="hero-text">
             Search jobs, create resumes, apply easily, and track your
             application status all in one place.
           </p>
 
-          {/* ⭐ Premium Tags instead of buttons */}
           <div className="hero-tags">
             <div className="tag">Job Search</div>
             <div className="tag">Resume Builder</div>
@@ -162,32 +202,35 @@ function Home() {
         </div>
       </div>
 
-      {/* 🔽 FEATURES */}
+      {/* FEATURES */}
       <div className="feature-grid">
         <div className="feature-card">
+          <div className="feature-icon">🔍</div>
           <h3>Job Search</h3>
           <p>Find and apply for jobs easily based on your skills.</p>
         </div>
 
         <div className="feature-card">
+          <div className="feature-icon">📄</div>
           <h3>Resume Builder</h3>
           <p>Create professional resumes quickly and efficiently.</p>
         </div>
 
         <div className="feature-card">
+          <div className="feature-icon">📌</div>
           <h3>Application Tracking</h3>
           <p>Track your job application status in real-time.</p>
         </div>
       </div>
 
-      {/* 🔽 FINAL SECTION */}
+      {/* FINAL SECTION */}
       <div className="bottom-card">
+        <div className="bottom-icon">🚀</div>
         <h2>Start Your Career Journey Today</h2>
         <p>
           Register now and explore amazing job opportunities.
         </p>
       </div>
-
     </div>
   );
 }
